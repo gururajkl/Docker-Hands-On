@@ -2,24 +2,24 @@ version: "3.8"
 
 services:
   mongodb:
-    image: 'mongo'
+    image: "mongo"
     volumes:
       - "data:/data/db"
     # environment:
-      # This is an example of how to use an env to set the environment variables for the MongoDB container.
-      # MONGO_INITDB_ROOT_USERNAME: max
-      # MONGO_INITDB_ROOT_PASSWORD: secret
+    # This is an example of how to use an env to set the environment variables for the MongoDB container.
+    # MONGO_INITDB_ROOT_USERNAME: max
+    # MONGO_INITDB_ROOT_PASSWORD: secret
     env_file:
       - ./env/mongo.env
-    
+
   backend:
     # This is how give dockerfile path in shorter form.
     build: ./backend
 
     # This is how to give dockerfile path in longer form.
     # build:
-      # context: ./backend
-      # dockerfile: Custom-Dockerfile-Name
+    # context: ./backend
+    # dockerfile: Custom-Dockerfile-Name
 
     ports:
       - "80:80"
@@ -31,6 +31,18 @@ services:
       - ./env/backend.env
     depends_on:
       - mongodb
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./frontend/src:/app/src"
+    # I need these two options to set to true to run the container in interactive mode.
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
 
 volumes:
   # This is the syntax docker expects for creating a named volume.
