@@ -1,0 +1,8 @@
+docker run -d -p 3000:80 --name feedback-app -v feedback:/app/feedback -v "D:\Docker Hands On\data-volumes-01-starting-setup:/app" -v /app/node_modules feedback-node:volumes
+
+
+* -v feedback:/app/feedback -> Named volume which survives container removal as well.
+
+* -v "D:\Docker Hands On\data-volumes-01-starting-setup:/app" -> Bind mount which will mount to my host machine local path.
+
+* -v /app/node_modules -> Anonymous volume which won't survive container removal.
