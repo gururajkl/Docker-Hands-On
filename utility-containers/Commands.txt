@@ -1,0 +1,4 @@
+To run the utility container, where i can run the node js in my local without installing docker locally.
+I need to run the below command:
+-> docker run -it -v "D:\Docker Hands On\utility-containers:/app" node-util npm init
+Here am using bind mount to my local path which will change my things in local using node or other containers.
